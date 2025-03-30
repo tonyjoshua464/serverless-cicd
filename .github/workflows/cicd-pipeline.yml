@@ -25,7 +25,7 @@ jobs:
           cd backend
           npm install
 
-  deploy:
+  deploy-on-fargate:
     needs: build-and-test
     runs-on: ubuntu-latest
     steps:
