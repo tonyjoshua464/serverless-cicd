@@ -53,6 +53,14 @@ jobs:
         run: |
           docker push ${{ secrets.ECR_REGISTRY }}/serverless:latest
 
+      - name: Install Terraform
+        run: |
+          sudo apt-get update && sudo apt-get install -y wget unzip
+          wget https://releases.hashicorp.com/terraform/1.6.3/terraform_1.6.3_linux_amd64.zip
+          unzip terraform_1.6.3_linux_amd64.zip
+          sudo mv terraform /usr/local/bin/
+          terraform --version
+
       - name: Deploy with Terraform
         run: |
           cd terraform
