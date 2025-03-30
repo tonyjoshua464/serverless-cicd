@@ -57,8 +57,9 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install -y wget unzip
           wget -q https://releases.hashicorp.com/terraform/1.6.3/terraform_1.6.3_linux_amd64.zip
+          sudo rm -rf /usr/local/bin/terraform  # Ensure any existing Terraform binary is removed
           unzip -o terraform_1.6.3_linux_amd64.zip >/dev/null
-          sudo mv -f terraform /usr/local/bin/
+          sudo mv terraform /usr/local/bin/
           terraform --version
 
       - name: Deploy with Terraform
