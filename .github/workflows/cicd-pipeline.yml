@@ -58,15 +58,17 @@ jobs:
           sudo apt-get update && sudo apt-get install -y wget unzip
           wget -q https://releases.hashicorp.com/terraform/1.6.3/terraform_1.6.3_linux_amd64.zip
           
-          # Check if terraform exists and remove it properly
-          if [ -d "/usr/local/bin/terraform" ]; then
-            echo "Terraform exists as a directory. Removing..."
-            sudo rm -rf /usr/local/bin/terraform
-          elif [ -f "/usr/local/bin/terraform" ]; then
-            echo "Terraform exists as a file. Removing..."
-            sudo rm -f /usr/local/bin/terraform
+          # Forcefully remove any existing Terraform installation
+          sudo rm -rf /usr/local/bin/terraform || true
+          sudo rm -rf /usr/bin/terraform || true
+          sudo rm -rf /bin/terraform || true
+
+          # Ensure Terraform does not exist before proceeding
+          if command -v terraform >/dev/null 2>&1; then
+            echo "Error: Terraform is still present after deletion!"
+            exit 1
           fi
-          
+
           # Extract and install Terraform
           unzip -o terraform_1.6.3_linux_amd64.zip >/dev/null
           sudo mv terraform /usr/local/bin/terraform
@@ -74,7 +76,6 @@ jobs:
 
           # Verify installation
           terraform --version
-
 
       - name: Deploy with Terraform
         run: |
