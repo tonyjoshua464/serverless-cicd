@@ -50,6 +50,7 @@ jobs:
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}
 
       - name: Build and Push Docker Image
+        working-directory: backend
         run: |
           docker build -t ${{ secrets.ECR_REGISTRY }}/serverless-app .
           docker push ${{ secrets.ECR_REGISTRY }}/serverless-app:latest
