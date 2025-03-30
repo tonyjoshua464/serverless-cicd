@@ -25,11 +25,10 @@ jobs:
           cd backend
           npm install
 
-      # If you don't have tests, comment out or remove the following step
-      # - name: Run Tests
-      #   run: |
-      #     cd backend
-      #     npm test
+      - name: Run Tests
+        run: |
+          cd backend
+          npm test
 
   deploy:
     needs: build-and-test
