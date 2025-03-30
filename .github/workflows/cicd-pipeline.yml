@@ -53,6 +53,9 @@ jobs:
         run: |
           docker build -t serverless-app .
           docker tag serverless-app:latest ${{ secrets.ECR_REGISTRY }}/serverless-app:latest
+       
+      - name: Push Docker Image to ECR
+        run: |
           docker push ${{ secrets.ECR_REGISTRY }}/serverless-app:latest
 
       - name: Deploy with Terraform
