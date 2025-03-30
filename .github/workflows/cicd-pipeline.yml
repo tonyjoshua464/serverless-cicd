@@ -47,11 +47,11 @@ jobs:
         working-directory: backend
         run: |
           docker build -t serverless-app .
-          docker tag serverless-app:latest ${{ secrets.ECR_REGISTRY }}/serverless-app:latest
+          docker tag serverless-app:latest ${{ secrets.ECR_REGISTRY }}/serverless:latest
        
       - name: Push Docker Image to ECR
         run: |
-          docker push ${{ secrets.ECR_REGISTRY }}/serverless-app:latest
+          docker push ${{ secrets.ECR_REGISTRY }}/serverless:latest
 
       - name: Deploy with Terraform
         run: |
